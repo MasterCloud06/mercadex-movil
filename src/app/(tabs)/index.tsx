@@ -3,6 +3,7 @@ import { router } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { Pressable, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Comunicados } from '@/componentes/Comunicados';
 import { Aviso, Boton, Cargando, Etiqueta, Tarjeta, Vacio } from '@/componentes/ui';
 import { api, type Deuda, type DeudasUnidad } from '@/lib/api';
 import { useDatos } from '@/lib/useDatos';
@@ -14,6 +15,7 @@ export default function Deudas() {
   const { datos, error, cargando, recargando, recargar } = useDatos(() => api.get<DeudasUnidad[]>('/api/app/deudas'));
   const [seleccion, setSeleccion] = useState<string[]>([]);
   const [aviso, setAviso] = useState<string | null>(null);
+  const [senal, setSenal] = useState(0);
 
   const todas = useMemo(
     () => (datos ?? []).flatMap((u) => u.deudas.map((d) => ({ ...d, unidadId: u.unidadId, caseta: u.codigo }))),
@@ -60,10 +62,15 @@ export default function Deudas() {
     <SafeAreaView edges={['top']} style={{ flex: 1 }}>
       <ScrollView
         contentContainerStyle={{ padding: espacio.l, paddingBottom: elegidas.length ? 120 : 32 }}
-        refreshControl={<RefreshControl refreshing={recargando} onRefresh={recargar} tintColor={colores.azulMedio} />}>
+        refreshControl={<RefreshControl refreshing={recargando} onRefresh={() => {
+              setSenal((n) => n + 1);
+              void recargar();
+            }} tintColor={colores.azulMedio} />}>
         <Text style={e.saludo}>Hola, {sesion?.nombres.split(' ')[0]}</Text>
 
         {error ? <Aviso texto={error} /> : null}
+
+        <Comunicados senal={senal} />
 
         {/* Resumen: lo que debe, por moneda */}
         <View style={e.resumen}>

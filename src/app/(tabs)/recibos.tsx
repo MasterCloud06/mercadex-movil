@@ -67,7 +67,7 @@ export default function Recibos() {
                         <Text style={e.lineaMonto}>{dinero(d.monto, r.moneda)}</Text>
                       </View>
                     ))}
-                    {r.emitidoPor ? <Text style={e.emisor}>Emitido por: {r.emitidoPor}</Text> : null}
+                    {r.emitidoPor ? <Text style={e.emisor}>Elaborado por: {r.emitidoPor}</Text> : null}
                   </View>
                 ) : null}
               </Tarjeta>

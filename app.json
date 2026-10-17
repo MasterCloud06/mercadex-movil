@@ -3,7 +3,7 @@
     "name": "Mercadex",
     "slug": "mercadex-socios",
     "scheme": "mercadex",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -30,7 +30,7 @@
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "versionCode": 2,
+      "versionCode": 3,
       "permissions": [
         "android.permission.REQUEST_INSTALL_PACKAGES"
       ]
